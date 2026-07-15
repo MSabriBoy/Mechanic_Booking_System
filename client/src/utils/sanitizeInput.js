@@ -1,14 +1,14 @@
-import sanitizeHtml from "sanitize-html";
+import DOMPurify from "dompurify";
 
 const sanitizeInput = (value) => {
   if (typeof value !== "string") {
     return value;
   }
 
-  return sanitizeHtml(value, {
-    allowedTags: [],
-    allowedAttributes: {},
-  });
+  return DOMPurify.sanitize(value, {
+    ALLOWED_TAGS: [],
+    ALLOWED_ATTR: [],
+  }).trim();
 };
 
 export default sanitizeInput;
