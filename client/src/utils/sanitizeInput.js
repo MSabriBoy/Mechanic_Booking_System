@@ -1,0 +1,14 @@
+import sanitizeHtml from "sanitize-html";
+
+const sanitizeInput = (value) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  return sanitizeHtml(value, {
+    allowedTags: [],
+    allowedAttributes: {},
+  });
+};
+
+export default sanitizeInput;
