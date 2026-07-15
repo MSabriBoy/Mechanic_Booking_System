@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { getBookings } from "../api/booking.api";
 import useDebounce from "./useDebounce";
@@ -21,6 +21,14 @@ const useBookings = () => {
   const [error, setError] = useState(null);
 
   const debouncedSearch = useDebounce(filters.search, 400);
+
+  const requestParams = useMemo(
+    () => ({
+      ...filters,
+      search: debouncedSearch,
+    }),
+    [filters, debouncedSearch]
+  );
 
   const fetchBookings = useCallback(
     async (params) => {
@@ -46,21 +54,9 @@ const useBookings = () => {
     []
   );
 
-  useEffect(() => {
-    const requestParams = {
-      ...filters,
-      search: debouncedSearch,
-    };
-
-    fetchBookings(requestParams);
-  }, [
-    debouncedSearch,
-    filters.status,
-    filters.serviceType,
-    filters.page,
-    filters.limit,
-    fetchBookings,
-  ]);
+useEffect(() => {
+  fetchBookings(requestParams);
+}, [fetchBookings, requestParams]);
 
   const updateFilters = useCallback((updates) => {
     setFilters((previous) => ({
@@ -74,11 +70,8 @@ const useBookings = () => {
   }, []);
 
   const refetch = useCallback(() => {
-    return fetchBookings({
-      ...filters,
-      search: debouncedSearch,
-    });
-  }, [fetchBookings, filters, debouncedSearch]);
+  return fetchBookings(requestParams);
+}, [fetchBookings, requestParams]);
 
   return {
     bookings,
