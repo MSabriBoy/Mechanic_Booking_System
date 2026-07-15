@@ -184,9 +184,20 @@ const BookingFormModal = ({
       : "border-neutral-300 focus:border-neutral-900"
     }`;
 
+  const inputProps = (fieldName) => ({
+    "aria-invalid": Boolean(errors[fieldName]),
+    "aria-describedby": errors[fieldName]
+      ? `${fieldName}-error`
+      : undefined,
+  });
+
   const renderError = (fieldName) =>
     errors[fieldName] ? (
-      <p className="mt-1 text-xs text-red-500">
+      <p
+        id={`${fieldName}-error`}
+        className="mt-1 text-xs text-red-500"
+        role="alert"
+      >
         {errors[fieldName]}
       </p>
     ) : null;
@@ -225,6 +236,7 @@ const BookingFormModal = ({
             value={form.customerName}
             onChange={handleChange}
             className={inputClassName("customerName")}
+            {...inputProps("customerName")}
           />
 
           {renderError("customerName")}
@@ -248,6 +260,7 @@ const BookingFormModal = ({
             value={form.customerPhone}
             onChange={handleChange}
             className={inputClassName("customerPhone")}
+            {...inputProps("customerPhone")}
           />
 
           {renderError("customerPhone")}
@@ -270,6 +283,7 @@ const BookingFormModal = ({
             value={form.vehicleRegistration}
             onChange={handleChange}
             className={inputClassName("vehicleRegistration")}
+            {...inputProps("vehicleRegistration")}
           />
 
           {renderError("vehicleRegistration")}
@@ -292,6 +306,7 @@ const BookingFormModal = ({
             value={form.vehicleMake}
             onChange={handleChange}
             className={inputClassName("vehicleMake")}
+            {...inputProps("vehicleMake")}
           />
 
           {renderError("vehicleMake")}
@@ -314,6 +329,7 @@ const BookingFormModal = ({
             value={form.vehicleModel}
             onChange={handleChange}
             className={inputClassName("vehicleModel")}
+            {...inputProps("vehicleModel")}
           />
 
           {renderError("vehicleModel")}
@@ -335,6 +351,7 @@ const BookingFormModal = ({
             value={form.serviceType}
             onChange={handleChange}
             className={inputClassName("serviceType")}
+            {...inputProps("serviceType")}
           >
             <option value="">
               Select Service
@@ -367,9 +384,11 @@ const BookingFormModal = ({
             id="appointmentDate"
             name="appointmentDate"
             type="date"
+            min={new Date().toISOString().split("T")[0]}
             value={form.appointmentDate}
             onChange={handleChange}
             className={inputClassName("appointmentDate")}
+            {...inputProps("appointmentDate")}
           />
 
           {renderError("appointmentDate")}
@@ -391,9 +410,8 @@ const BookingFormModal = ({
               onChange={handleChange}
               disabled={availableStatuses.length <= 1}
               className={`${inputClassName("status")} disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:text-neutral-500`}
-              aria-describedby={
-                errors.status ? "status-error" : undefined
-              }
+              {...inputProps("status")}
+
             >
               {availableStatuses.map((status) => (
                 <option
@@ -405,14 +423,7 @@ const BookingFormModal = ({
               ))}
             </select>
 
-            {errors.status && (
-              <p
-                id="status-error"
-                className="mt-1 text-xs text-red-600"
-              >
-                {errors.status}
-              </p>
-            )}
+            {renderError("status")}
 
             {availableStatuses.length === 1 && (
               <p className="mt-2 text-xs text-neutral-500">
@@ -439,7 +450,8 @@ const BookingFormModal = ({
             rows={5}
             value={form.notes}
             onChange={handleChange}
-            className="w-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-neutral-900"
+            className={`${inputClassName("notes")} min-h-32 resize-y`}
+            {...inputProps("notes")}
           />
         </div>
 
