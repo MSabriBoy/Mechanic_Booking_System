@@ -1,14 +1,22 @@
 import api from "./axios";
 
-export const getBookings = async (params = {}) => {
+export const getBookings = async (
+  params = {},
+  signal
+) => {
   const cleanParams = Object.fromEntries(
     Object.entries(params).filter(([, value]) => {
-      return value !== "" && value !== null && value !== undefined;
+      return (
+        value !== "" &&
+        value !== null &&
+        value !== undefined
+      );
     })
   );
 
   const response = await api.get("/bookings", {
     params: cleanParams,
+    signal,
   });
 
   return response.data;

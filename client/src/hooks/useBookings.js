@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useRef, useMemo, useState } from "react";
 
 import { getBookings } from "../api/booking.api";
 import useDebounce from "./useDebounce";
@@ -20,7 +20,9 @@ const useBookings = () => {
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false);
   const [error, setError] = useState(null);
 
-  const debouncedSearch = useDebounce(filters.search, 400);
+  const debouncedSearch = useDebounce(filters.search, 500);
+
+  const abortControllerRef = useRef(null);
 
   const requestParams = useMemo(
     () => ({
@@ -32,31 +34,52 @@ const useBookings = () => {
 
   const fetchBookings = useCallback(
     async (params) => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      const controller = new AbortController();
+      abortControllerRef.current = controller;
+
       try {
         setLoading(true);
         setError(null);
 
-        const response = await getBookings(params);
+        const response = await getBookings(params, controller.signal);
 
         setBookings(response.data.bookings);
         setPagination(response.data.pagination);
       } catch (requestError) {
+        if (
+          requestError.name === "CanceledError" ||
+          requestError.code === "ERR_CANCELED"
+        ) {
+          return;
+        }
+
         setError(
           requestError?.response?.data?.message ??
           "Unable to load bookings. Please try again."
         );
       } finally {
-        setLoading(false);
-        setHasLoadedOnce(true);
-
+        if (!controller.signal.aborted) {
+          setLoading(false);
+          setHasLoadedOnce(true);
+        }
       }
     },
     []
   );
 
-useEffect(() => {
-  fetchBookings(requestParams);
-}, [fetchBookings, requestParams]);
+  useEffect(() => {
+    fetchBookings(requestParams);
+  }, [fetchBookings, requestParams]);
+
+  useEffect(() => {
+  return () => {
+    abortControllerRef.current?.abort();
+  };
+}, []);
 
   const updateFilters = useCallback((updates) => {
     setFilters((previous) => ({
@@ -70,8 +93,8 @@ useEffect(() => {
   }, []);
 
   const refetch = useCallback(() => {
-  return fetchBookings(requestParams);
-}, [fetchBookings, requestParams]);
+    return fetchBookings(requestParams);
+  }, [fetchBookings, requestParams]);
 
   return {
     bookings,
