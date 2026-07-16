@@ -95,7 +95,7 @@ const BookingsPage = () => {
 
     return (
         <DashboardLayout>
-            <div className="space-y-6">
+            <main className="space-y-6">
                 <BookingToolbar
                     canCreate={canCreateBooking}
                     onCreate={() => {
@@ -204,7 +204,7 @@ const BookingsPage = () => {
                     }}
                     onConfirm={handleDeleteBooking}
                 />
-            </div>
+            </main>
         </DashboardLayout>
     );
 };

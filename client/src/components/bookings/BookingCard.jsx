@@ -16,9 +16,9 @@ const BookingCard = ({
     <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="font-semibold text-neutral-900">
+          <p className="font-semibold text-neutral-900">
             {booking.customerName}
-          </h3>
+          </p>
 
           <div className="mt-2 flex items-center gap-2 text-sm text-neutral-500">
             <Phone size={14} />

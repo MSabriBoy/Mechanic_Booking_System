@@ -42,7 +42,7 @@ const DashboardPage = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-8">
+      <main className="space-y-8">
         <div>
           <h1 className="text-3xl font-bold text-neutral-900">
             Dashboard
@@ -140,7 +140,7 @@ const DashboardPage = () => {
             </div>
           </div>
         )}
-      </div>
+      </main>
     </DashboardLayout>
   );
 };
