@@ -20,8 +20,12 @@ const BookingsPage = () => {
 
     const { user } = useAuth();
 
-    const canCreateBooking = ["admin", "staff"].includes(user?.role);
-    const canEditBooking = ["admin", "staff"].includes(user?.role);
+    const canManageBookings =
+        ["admin", "staff"].includes(user?.role);
+
+    const canCreateBooking = canManageBookings;
+    const canEditBooking = canManageBookings;
+
     const canDeleteBooking = user?.role === "admin";
 
     const [selectedBooking, setSelectedBooking] = useState(null);
@@ -54,6 +58,8 @@ const BookingsPage = () => {
 
             await deleteBooking(selectedBooking._id);
 
+            await refetch();
+
             console.log(
                 "[Analytics] User completed booking deletion."
             );
@@ -62,8 +68,6 @@ const BookingsPage = () => {
 
             setIsDeleteOpen(false);
             setSelectedBooking(null);
-
-            await refetch();
         } catch (error) {
             console.error(
                 "Failed to delete booking:",
@@ -93,7 +97,7 @@ const BookingsPage = () => {
         <DashboardLayout>
             <div className="space-y-6">
                 <BookingToolbar
-                canCreate={canCreateBooking}
+                    canCreate={canCreateBooking}
                     onCreate={() => {
                         setSelectedBooking(null);
                         setIsFormOpen(true);
@@ -145,7 +149,7 @@ const BookingsPage = () => {
                 ) : (
                     <BookingTable
                         bookings={bookings}
-                         canEdit={canEditBooking}
+                        canEdit={canEditBooking}
                         canDelete={canDeleteBooking}
                         onEdit={(booking) => {
                             setSelectedBooking(booking);
