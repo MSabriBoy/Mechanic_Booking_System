@@ -126,4 +126,26 @@ const updateUserStatus = async (userId, isActive, requestingUserId) => {
   return user;
 };
 
-export { createUser, getUsers, updateUserRole, updateUserStatus };
+const deleteUser = async (userId, requestingUserId) => {
+  if (userId === requestingUserId.toString()) {
+    throw new ApiError(400, "You cannot delete your own account.");
+  }
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new ApiError(404, "User not found.");
+  }
+
+  if (user.role === ROLES.ADMIN) {
+  throw new ApiError(403, "Admin accounts cannot be deleted.");
+}
+
+ const deletedUserName = user.toObject();
+
+  await user.deleteOne();
+
+  return user;
+};
+
+export { createUser, getUsers, updateUserRole, updateUserStatus, deleteUser};

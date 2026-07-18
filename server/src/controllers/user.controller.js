@@ -4,6 +4,7 @@ import {
   getUsers,
   updateUserRole,
   updateUserStatus,
+  deleteUser,
 } from "../services/user.service.js";
 
 const create = asyncHandler(async (req, res) => {
@@ -70,4 +71,15 @@ const updateStatus = asyncHandler(async (req, res) => {
   });
 });
 
-export { create, getAll, updateRole, updateStatus };
+const remove = asyncHandler(async (req, res) => {
+  await deleteUser(req.params.userId, req.user._id);
+
+  console.log("[Analytics] Admin deleted a user.");
+
+  res.status(200).json({
+    success: true,
+    message: `"${deletedUserName}" deleted successfully.`,
+  });
+});
+
+export { create, getAll, updateRole, updateStatus, remove };

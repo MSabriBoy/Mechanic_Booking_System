@@ -5,6 +5,7 @@ import {
   getAll,
   updateRole,
   updateStatus,
+  remove,
 } from "../controllers/user.controller.js";
 
 import { protect, authorize } from "../middleware/auth.middleware.js";
@@ -49,6 +50,13 @@ router.patch(
   userIdValidator,
   updateStatusValidator,
   updateStatus
+);
+
+router.delete(
+  "/:userId",
+  authorize(ROLES.ADMIN),
+  userIdValidator,
+  remove
 );
 
 export default router;
