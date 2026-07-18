@@ -1,6 +1,7 @@
 import express from "express";
 
 import {
+  create,
   getAll,
   updateRole,
   updateStatus,
@@ -11,6 +12,7 @@ import { ROLES } from "../constants/roles.js";
 
 import {
   userIdValidator,
+  createUserValidator,
   updateRoleValidator,
   updateStatusValidator,
   userQueryValidator,
@@ -20,12 +22,18 @@ const router = express.Router();
 
 router.use(protect);
 
-router.get(
-  "/",
-  authorize(ROLES.ADMIN, ROLES.MANAGER),
-  userQueryValidator,
-  getAll
-);
+router
+  .route("/")
+  .get(
+    authorize(ROLES.ADMIN, ROLES.MANAGER),
+    userQueryValidator,
+    getAll
+  )
+  .post(
+    authorize(ROLES.ADMIN),
+    createUserValidator,
+    create
+  );
 
 router.patch(
   "/:userId/role",

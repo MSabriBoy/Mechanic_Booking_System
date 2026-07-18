@@ -1,9 +1,24 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import {
+  createUser,
   getUsers,
   updateUserRole,
   updateUserStatus,
 } from "../services/user.service.js";
+
+const create = asyncHandler(async (req, res) => {
+  const user = await createUser(req.body);
+
+  console.log("[Analytics] Admin created a user.");
+
+  res.status(201).json({
+    success: true,
+    message: "User created successfully.",
+    data: {
+      user,
+    },
+  });
+});
 
 const getAll = asyncHandler(async (req, res) => {
    console.log("Controller req.query:", req.query);
@@ -55,4 +70,4 @@ const updateStatus = asyncHandler(async (req, res) => {
   });
 });
 
-export { getAll, updateRole, updateStatus };
+export { create, getAll, updateRole, updateStatus };

@@ -1,8 +1,35 @@
 import User from "../models/User.js";
 import ApiError from "../utils/ApiError.js";
 
+import { ROLES } from "../constants/roles.js";
+
 const escapeRegex = (value) =>
   value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+const createUser = async ({ name, email, password, role }) => {
+  const normalizedEmail = email.toLowerCase().trim();
+
+  const existingUser = await User.findOne({
+    email: normalizedEmail,
+  });
+
+  if (existingUser) {
+    throw new ApiError(409, "An account with this email already exists.");
+  }
+
+  if (role === ROLES.ADMIN) {
+    throw new ApiError(403, "Admin accounts cannot be created.");
+  }
+
+  const user = await User.create({
+    name,
+    email: normalizedEmail,
+    password,
+    role,
+  });
+
+  return user;
+};
 
 const getUsers = async ({
   search,
@@ -99,4 +126,4 @@ const updateUserStatus = async (userId, isActive, requestingUserId) => {
   return user;
 };
 
-export { getUsers, updateUserRole, updateUserStatus };
+export { createUser, getUsers, updateUserRole, updateUserStatus };

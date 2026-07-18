@@ -1,7 +1,9 @@
 import { body, param, validationResult, query } from "express-validator";
 
 import { ROLE_VALUES } from "../constants/roles.js";
+
 import ApiError from "../utils/ApiError.js";
+import sanitizeText from "../utils/sanitizeInput.js";
 
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -18,10 +20,43 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
+const sanitizeString = (value) => sanitizeText(value);
+
 const userIdValidator = [
   param("userId")
     .isMongoId()
     .withMessage("Invalid user identifier."),
+
+  handleValidationErrors,
+];
+
+const createUserValidator = [
+  body("name")
+    .customSanitizer(sanitizeString)
+    .notEmpty()
+    .withMessage("Name is required.")
+    .isLength({ min: 2, max: 80 })
+    .withMessage("Name must be between 2 and 80 characters."),
+
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required.")
+    .isEmail()
+    .withMessage("Please provide a valid email address.")
+    .normalizeEmail(),
+
+  body("password")
+    .notEmpty()
+    .withMessage("Password is required.")
+    .isLength({ min: 8 })
+    .withMessage("Password must be at least 8 characters long."),
+
+  body("role")
+    .notEmpty()
+    .withMessage("Role is required.")
+    .isIn(ROLE_VALUES)
+    .withMessage("Invalid user role."),
 
   handleValidationErrors,
 ];
@@ -82,6 +117,7 @@ const userQueryValidator = [
 
 export {
   userIdValidator,
+  createUserValidator,
   updateRoleValidator,
   updateStatusValidator,
   userQueryValidator,
