@@ -75,7 +75,7 @@ const LoginPage = () => {
     } catch (error) {
       toast.error(
         error.response?.data?.message ||
-          "Unable to sign in. Please try again."
+        "Unable to sign in. Please try again."
       );
     } finally {
       setIsSubmitting(false);
@@ -135,11 +135,10 @@ const LoginPage = () => {
                 onChange={handleChange}
                 aria-invalid={Boolean(errors.email)}
                 aria-describedby={errors.email ? "email-error" : undefined}
-                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${
-                  errors.email
+                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${errors.email
                     ? "border-red-500"
                     : "border-neutral-300 focus:border-neutral-900"
-                }`}
+                  }`}
                 placeholder="you@example.com"
               />
 
@@ -173,11 +172,10 @@ const LoginPage = () => {
                 aria-describedby={
                   errors.password ? "password-error" : undefined
                 }
-                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${
-                  errors.password
+                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${errors.password
                     ? "border-red-500"
                     : "border-neutral-300 focus:border-neutral-900"
-                }`}
+                  }`}
                 placeholder="Enter your password"
               />
 

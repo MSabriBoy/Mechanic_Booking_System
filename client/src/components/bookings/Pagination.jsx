@@ -13,7 +13,7 @@ const Pagination = ({
     hasPreviousPage = false,
   } = pagination;
 
-    const currentPage = Number(page);
+  const currentPage = Number(page);
 
   if (total === 0 || totalPages <= 1) {
     return null;

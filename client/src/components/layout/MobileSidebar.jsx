@@ -15,17 +15,15 @@ const MobileSidebar = ({ open, onClose }) => {
     <>
       <div
         onClick={onClose}
-        className={`fixed inset-0 z-40 bg-black/40 transition lg:hidden ${
-          open
-            ? "visible opacity-100"
-            : "invisible opacity-0"
-        }`}
+        className={`fixed inset-0 z-40 bg-black/40 transition lg:hidden ${open
+          ? "visible opacity-100"
+          : "invisible opacity-0"
+          }`}
       />
 
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-full w-72 flex-col bg-neutral-950 text-white transition-transform duration-300 lg:hidden ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed left-0 top-0 z-50 flex h-full w-72 flex-col bg-neutral-950 text-white transition-transform duration-300 lg:hidden ${open ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="flex items-center justify-between border-b border-neutral-800 p-5">
           <div className="flex items-center gap-3">
@@ -63,10 +61,9 @@ const MobileSidebar = ({ open, onClose }) => {
                 to={item.path}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-xl px-4 py-3 transition ${
-                    isActive
-                      ? "bg-neutral-800"
-                      : "hover:bg-neutral-800"
+                  `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                    ? "bg-neutral-800"
+                    : "hover:bg-neutral-800"
                   }`
                 }
               >

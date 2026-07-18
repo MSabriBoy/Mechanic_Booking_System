@@ -76,10 +76,10 @@ const useBookings = () => {
   }, [fetchBookings, requestParams]);
 
   useEffect(() => {
-  return () => {
-    abortControllerRef.current?.abort();
-  };
-}, []);
+    return () => {
+      abortControllerRef.current?.abort();
+    };
+  }, []);
 
   const updateFilters = useCallback((updates) => {
     setFilters((previous) => ({

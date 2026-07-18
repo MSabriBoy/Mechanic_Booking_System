@@ -15,12 +15,12 @@ createRoot(document.getElementById("root")).render(
         <App />
 
         <Toaster
-           position="top-right"
-            reverseOrder={false}
-            gutter={12}
-            toastOptions={{
-                duration: 3000,
-            }}
+          position="top-right"
+          reverseOrder={false}
+          gutter={12}
+          toastOptions={{
+            duration: 3000,
+          }}
         />
       </AuthProvider>
     </BrowserRouter>

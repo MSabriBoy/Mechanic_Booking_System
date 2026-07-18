@@ -93,7 +93,7 @@ const RegisterPage = () => {
 
       toast.error(
         error.response?.data?.message ||
-          "Unable to create your account. Please try again."
+        "Unable to create your account. Please try again."
       );
     } finally {
       setIsSubmitting(false);
@@ -153,11 +153,10 @@ const RegisterPage = () => {
                 onChange={handleChange}
                 aria-invalid={Boolean(errors.name)}
                 aria-describedby={errors.name ? "name-error" : undefined}
-                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${
-                  errors.name
+                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${errors.name
                     ? "border-red-500"
                     : "border-neutral-300 focus:border-neutral-900"
-                }`}
+                  }`}
                 placeholder="Enter your full name"
               />
 
@@ -191,11 +190,10 @@ const RegisterPage = () => {
                 aria-describedby={
                   errors.email ? "register-email-error" : undefined
                 }
-                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${
-                  errors.email
+                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${errors.email
                     ? "border-red-500"
                     : "border-neutral-300 focus:border-neutral-900"
-                }`}
+                  }`}
                 placeholder="you@example.com"
               />
 
@@ -229,11 +227,10 @@ const RegisterPage = () => {
                 aria-describedby={
                   errors.password ? "register-password-error" : undefined
                 }
-                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${
-                  errors.password
+                className={`w-full rounded-lg border px-4 py-3 text-sm text-neutral-950 outline-none transition focus:ring-2 focus:ring-neutral-900/20 ${errors.password
                     ? "border-red-500"
                     : "border-neutral-300 focus:border-neutral-900"
-                }`}
+                  }`}
                 placeholder="Minimum 8 characters"
               />
 

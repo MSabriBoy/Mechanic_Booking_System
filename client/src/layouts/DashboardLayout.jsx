@@ -11,24 +11,23 @@ const DashboardLayout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-neutral-100">
-     <div className="flex">
-      <div className="fixed inset-y-0 left-0 z-40 hidden lg:block">
-  <Sidebar
-    collapsed={collapsed}
-    onCollapse={() => setCollapsed((prev) => !prev)}
-  />
-</div>
-      
-     </div>
+      <div className="flex">
+        <div className="fixed inset-y-0 left-0 z-40 hidden lg:block">
+          <Sidebar
+            collapsed={collapsed}
+            onCollapse={() => setCollapsed((prev) => !prev)}
+          />
+        </div>
+
+      </div>
 
       <MobileSidebar
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
       />
 
-      <div className={`flex min-h-screen flex-1 flex-col transition-all duration-300 ${
-    collapsed ? "lg:ml-20" : "lg:ml-72"
-  }`}>
+      <div className={`flex min-h-screen flex-1 flex-col transition-all duration-300 ${collapsed ? "lg:ml-20" : "lg:ml-72"
+        }`}>
         <Header
           onMenuClick={() => setMobileOpen(true)}
         />

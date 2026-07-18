@@ -74,7 +74,7 @@ const getUsers = async ({
       .limit(limit)
       .lean(),
 
-    User.countDocuments(filter),  
+    User.countDocuments(filter),
   ]);
 
   return {
@@ -138,14 +138,14 @@ const deleteUser = async (userId, requestingUserId) => {
   }
 
   if (user.role === ROLES.ADMIN) {
-  throw new ApiError(403, "Admin accounts cannot be deleted.");
-}
+    throw new ApiError(403, "Admin accounts cannot be deleted.");
+  }
 
- const deletedUserName = user.toObject();
+  const deletedUserName = user.toObject();
 
   await user.deleteOne();
 
   return user;
 };
 
-export { createUser, getUsers, updateUserRole, updateUserStatus, deleteUser};
+export { createUser, getUsers, updateUserRole, updateUserStatus, deleteUser };

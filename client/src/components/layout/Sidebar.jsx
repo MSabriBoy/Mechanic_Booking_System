@@ -13,9 +13,8 @@ const Sidebar = ({ collapsed, onCollapse }) => {
 
   return (
     <aside
-      className={`flex h-screen flex-col border-r border-neutral-800 bg-neutral-950 text-white transition-all duration-300 ${
-        collapsed ? "w-20" : "w-72"
-      }`}
+      className={`flex h-screen flex-col border-r border-neutral-800 bg-neutral-950 text-white transition-all duration-300 ${collapsed ? "w-20" : "w-72"
+        }`}
     >
       <div className="flex items-center justify-between border-b border-neutral-800 p-5">
         {!collapsed && (
@@ -40,9 +39,8 @@ const Sidebar = ({ collapsed, onCollapse }) => {
         >
           <ChevronLeft
             size={18}
-            className={`transition ${
-              collapsed ? "rotate-180" : ""
-            }`}
+            className={`transition ${collapsed ? "rotate-180" : ""
+              }`}
           />
         </button>
       </div>
@@ -56,10 +54,9 @@ const Sidebar = ({ collapsed, onCollapse }) => {
               key={item.id}
               to={item.path}
               className={({ isActive }) =>
-                `flex items-center gap-3 rounded-xl px-4 py-3 transition ${
-                  isActive
-                    ? "bg-neutral-800"
-                    : "hover:bg-neutral-800"
+                `flex items-center gap-3 rounded-xl px-4 py-3 transition ${isActive
+                  ? "bg-neutral-800"
+                  : "hover:bg-neutral-800"
                 }`
               }
             >

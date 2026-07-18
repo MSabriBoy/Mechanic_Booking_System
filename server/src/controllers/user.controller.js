@@ -22,8 +22,8 @@ const create = asyncHandler(async (req, res) => {
 });
 
 const getAll = asyncHandler(async (req, res) => {
-   console.log("Controller req.query:", req.query);
-const result = await getUsers(req.query);
+  console.log("Controller req.query:", req.query);
+  const result = await getUsers(req.query);
 
   res.status(200).json({
     success: true,
