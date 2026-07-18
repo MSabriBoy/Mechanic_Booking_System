@@ -1,4 +1,4 @@
-import { body, param, validationResult } from "express-validator";
+import { body, param, validationResult, query } from "express-validator";
 
 import { ROLE_VALUES } from "../constants/roles.js";
 import ApiError from "../utils/ApiError.js";
@@ -47,8 +47,42 @@ const updateStatusValidator = [
   handleValidationErrors,
 ];
 
+const userQueryValidator = [
+  query("search")
+    .optional()
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage("Search query cannot exceed 100 characters."),
+
+  query("role")
+    .optional()
+    .isIn(ROLE_VALUES)
+    .withMessage("Invalid user role."),
+
+  query("isActive")
+    .optional()
+    .isBoolean()
+    .withMessage("Account status must be a boolean.")
+    .toBoolean(),
+
+  query("page")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Page must be a positive integer.")
+    .toInt(),
+
+  query("limit")
+    .optional()
+    .isInt({ min: 1, max: 100 })
+    .withMessage("Limit must be between 1 and 100.")
+    .toInt(),
+
+  handleValidationErrors,
+];
+
 export {
   userIdValidator,
   updateRoleValidator,
   updateStatusValidator,
+  userQueryValidator,
 };

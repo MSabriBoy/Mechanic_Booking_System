@@ -6,17 +6,16 @@ import {
 } from "../services/user.service.js";
 
 const getAll = asyncHandler(async (req, res) => {
-  const users = await getUsers();
+   console.log("Controller req.query:", req.query);
+const result = await getUsers(req.query);
 
   res.status(200).json({
     success: true,
     message:
-      users.length > 0
+      result.users.length > 0
         ? "Users retrieved successfully."
         : "No data found.",
-    data: {
-      users,
-    },
+    data: result,
   });
 });
 

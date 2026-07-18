@@ -13,6 +13,7 @@ import {
   userIdValidator,
   updateRoleValidator,
   updateStatusValidator,
+  userQueryValidator,
 } from "../validators/user.validator.js";
 
 const router = express.Router();
@@ -22,6 +23,7 @@ router.use(protect);
 router.get(
   "/",
   authorize(ROLES.ADMIN, ROLES.MANAGER),
+  userQueryValidator,
   getAll
 );
 
