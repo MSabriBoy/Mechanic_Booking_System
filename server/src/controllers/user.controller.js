@@ -10,8 +10,6 @@ import {
 const create = asyncHandler(async (req, res) => {
   const user = await createUser(req.body);
 
-  console.log("[Analytics] Admin created a user.");
-
   res.status(201).json({
     success: true,
     message: "User created successfully.",
@@ -42,8 +40,6 @@ const updateRole = asyncHandler(async (req, res) => {
     req.user._id
   );
 
-  console.log("[Analytics] Admin updated a user role.");
-
   res.status(200).json({
     success: true,
     message: "User role updated successfully.",
@@ -60,8 +56,6 @@ const updateStatus = asyncHandler(async (req, res) => {
     req.user._id
   );
 
-  console.log("[Analytics] Admin updated a user account status.");
-
   res.status(200).json({
     success: true,
     message: "User account status updated successfully.",
@@ -73,8 +67,6 @@ const updateStatus = asyncHandler(async (req, res) => {
 
 const remove = asyncHandler(async (req, res) => {
   await deleteUser(req.params.userId, req.user._id);
-
-  console.log("[Analytics] Admin deleted a user.");
 
   res.status(200).json({
     success: true,
