@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { LoaderCircle, UserPlus, Wrench } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -273,6 +273,16 @@ const RegisterPage = () => {
             </button>
           </div>
         </form>
+
+        <p className="mt-6 text-center text-sm text-neutral-600">
+          Already have an account?{" "}
+          <Link
+            to="/login"
+            className="font-semibold text-neutral-950 underline underline-offset-4 hover:text-neutral-700"
+          >
+            Sign in
+          </Link>
+        </p>
       </section>
     </main>
   );
