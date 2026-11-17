@@ -13,6 +13,12 @@ const styles = {
 
   cancelled:
     "bg-red-100 text-red-700",
+
+  active:
+    "bg-green-100 text-green-700",
+
+  inactive:
+    "bg-red-100 text-red-700",
 };
 
 const labels = {
@@ -21,6 +27,8 @@ const labels = {
   in_progress: "In Progress",
   completed: "Completed",
   cancelled: "Cancelled",
+  active: "Active",
+  inactive: "Inactive",
 };
 
 const StatusBadge = ({ status }) => {

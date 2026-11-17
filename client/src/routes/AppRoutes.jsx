@@ -4,6 +4,7 @@ import DashboardPage from "../pages/DashboardPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import BookingsPage from "../pages/BookingsPage";
+import UsersPage from "../pages/UsersPage";
 
 import ProtectedRoute from "./ProtectedRoute";
 
@@ -30,6 +31,12 @@ const AppRoutes = () => {
           path="/bookings"
           element={<BookingsPage />}
         />
+
+          <Route
+    path="/users"
+    element={<UsersPage />}
+  />
+  
       </Route>
 
       <Route

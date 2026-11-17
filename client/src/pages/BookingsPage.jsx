@@ -60,10 +60,6 @@ const BookingsPage = () => {
 
             await refetch();
 
-            console.log(
-                "[Analytics] User completed booking deletion."
-            );
-
             toast.success("Booking deleted successfully.");
 
             setIsDeleteOpen(false);
